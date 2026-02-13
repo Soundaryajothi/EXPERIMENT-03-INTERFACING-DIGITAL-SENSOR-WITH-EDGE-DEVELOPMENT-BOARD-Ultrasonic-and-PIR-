@@ -1,11 +1,11 @@
-# EXPERIMENT-01-INTERFACTING-DIGITAL-OUTPUT-WITH-EDGE-DEVICE---(RASPBERRYPI-PI4)
+# EXPERIMENT-03-INTERFACTING-DIGITAL-SENSOR-WITH-EDGE-DEVELOPMENT-BOARD-ULTRASONIC-AND-PIR-SENSOR-(RASPBERRYPI-PI4)
 ### NAME 
 ### DEPARTMENT 
 ### ROLL NO 
 ### DATE OF EXPERIMENT 
 
 ### AIM
-To interface a digital output device (LED) with the Raspberry Pi 4 and control it using Python.
+To interface a digital sensor (Ultrasonic and PIR) with the Raspberry Pi 4 and control it using Python.
 
 ## APPARATUS REQUIRED
 Raspberry Pi 4
@@ -30,27 +30,36 @@ USB Cable
 
 
 The Raspberry Pi 4 Model B is built around a Broadcom BCM2711 system-on-chip that integrates a quad-core ARM Cortex-A72 (64-bit) CPU, VideoCore VI GPU, memory controller, and peripheral interfaces, forming a compact yet complete computer architecture where the SoC connects internally to RAM, USB 3.0 controller, Gigabit Ethernet, HDMI display, and wireless modules. Its 40-pin GPIO header provides a flexible pin configuration consisting of power pins (5 V and 3.3 V), multiple ground pins, and general-purpose input/output pins that operate at 3.3 V logic and can be programmed for digital I/O or alternate functions. Key alternate functions include I²C (SDA, SCL) for sensor communication, SPI (MOSI, MISO, SCLK, CS) for high-speed peripheral interfacing, UART (TX, RX) for serial communication, and PWM for control applications.  For communication, I2C (SDA, SCL), SPI (MOSI, MISO, SCK), and UART (TX, RX) interfaces are mapped across different GPIO pins, allowing seamless connectivity with sensors and peripherals. All GPIO pins support PWM (Pulse Width Modulation), making it useful for motor control, LED brightness adjustment, and sound applications. The BOOTSEL button enables USB mass storage mode for firmware flashing, while the DEBUG pins (SWD interface) provide debugging capabilities. With its low power consumption, flexible GPIO options, and rich interface support, the Raspberry Pi Pico is widely used for IoT, embedded systems, robotics, and automation projects.This architecture and pin multiplexing allow the Raspberry Pi 4 to act as both a general-purpose computing platform and an embedded controller, supporting rapid prototyping, hardware interfacing, and IoT applications.
+## Ultrasonic Sensor:
+An ultrasonic sensor is a distance-measuring device that uses high-frequency sound waves to detect objects and calculate how far away they are. It works by emitting ultrasonic pulses (typically around 40 kHz) and measuring the time taken for the echo to bounce back after hitting an object. Using the speed of sound in air, the sensor converts this time into distance. Ultrasonic sensors are widely used in robotics, obstacle detection, parking systems, and automation because they provide reliable, contactless measurement regardless of lighting conditions.
+<img width="600" height="411" alt="image" src="https://github.com/user-attachments/assets/d879d982-347a-45ff-92c1-b78b57e9fdef" />
 
+
+## PIR Sensor:
+A Passive Infrared (PIR) sensor is a motion detection device that senses changes in infrared radiation emitted by warm objects such as humans or animals. Instead of emitting signals, it passively detects heat variations within its field of view. When a warm body moves across the sensor’s detection zones, it triggers an electrical signal indicating motion. PIR sensors are commonly used in security alarms, automatic lighting systems, and energy-saving smart devices due to their low power consumption and ability to detect human presence effectively.
+<img width="428" height="494" alt="image" src="https://github.com/user-attachments/assets/bb6b0f22-33d7-4d63-b5c6-05e6d655e71d" />
 
 ## Working Principle:
 Experiment 1A
-The LED is connected to one of the GPIO pins of the Raspberry Pi 4.
-The Python script sets the GPIO pin HIGH to turn the LED ON and LOW to turn it OFF.
+The Ultrasonic sensor Trig pin is connected to one of the GPIO pins of the Raspberry Pi 4.
+The Ultrasonic sensor Echo pin is connected to one of the GPIO pins of the Raspberry Pi 4.
+The Python script sets the take the distance taken echo output and shown in Thingspeak cloud with current status and Console.
 CIRCUIT DIAGRAM
-Connect the anode (longer leg) of the LED to GP15 via a 330Ω resistor.
-Connect the cathode (shorter leg) of the LED to GND (ground).
+Connect the Vcc of the Ultrasonic sensor +5V in Raspberrry Pi4.
+Connect the Gnd of the Ultrasonic sensor Gnd in Raspberrry Pi4.
+Connect the Trig pin to any one GPIO.
+Connect the Echo pin to any one GPIO.
+
 
 Experiment 1B
-The LED is connected to one of the GPIO pins of the Raspberry Pi 4.
 The IR sensor is connected one of the GPIO pins in Raspberry Pi 4.
-The Python script sets the GPIO pin HIGH to turn the LED ON and LOW to turn it OFF based on the IR sensor.
+The Python script sets the PIR sensor value based on the motion detected and shown in Thingspeak and console.
 CIRCUIT DIAGRAM
-Connect the anode (longer leg) of the LED to any one GPIO via a 330Ω resistor.
-Connect the cathode (shorter leg) of the LED to GND (ground).
-Connect the IR sensor Vcc to any +5V.
-Connect the IR sensor GND to any GND.
-Connect the IR sensor OUT to any one GPIO. 
+Connect the PIR sensor Vcc to any +5V.
+Connect the PIR sensor GND to any GND.
+Connect the PIR sensor OUT to any one GPIO. 
 
+Experiment 3A
 ## PROGRAM (Python)
 ```
 
@@ -71,7 +80,7 @@ Experiment 1A
 
 # FIGURE -04 ADD TITLE HERE 
 
-Experiment 1B
+Experiment 3B
 
 # FIGURE -05 ADD TITILE HERE 
 
@@ -81,4 +90,4 @@ Experiment 1B
 
  
 ## RESULTS
-The LED connected to the Raspberry Pi 4 successfully turns ON and OFF at  user defined time  confirming the proper interfacing of a digital output.
+The Ultrasonic sensor and PIR sensor is connected to the Raspberry Pi 4 successfully and the distance and the motion detection is visualised in thingspeak confirming the proper interfacing of a digital output.
