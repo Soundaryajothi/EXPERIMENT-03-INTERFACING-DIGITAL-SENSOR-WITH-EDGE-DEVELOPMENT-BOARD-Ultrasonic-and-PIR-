@@ -180,8 +180,13 @@ while True:
     time.sleep(1)
 ```
 ## OUTPUT (Experiment 3B):
+![WhatsApp Image 2026-02-16 at 11 26 36 AM](https://github.com/user-attachments/assets/7a2d7ce3-629a-4e01-8f9d-145ea29b0dcb)
 
+![WhatsApp Image 2026-02-16 at 11 28 00 AM](https://github.com/user-attachments/assets/7293c8ae-e9e0-42dd-88e5-1e6b79139820)
 
- 
+![WhatsApp Image 2026-02-16 at 11 28 56 AM](https://github.com/user-attachments/assets/4f2b25f7-883b-4913-b176-a3c24ed7d9a0)
+
+ ![WhatsApp Image 2026-02-16 at 11 29 07 AM](https://github.com/user-attachments/assets/c48a2c65-99ca-4b63-93ee-62eb65cf4f66)
+
 ## RESULTS
 The Ultrasonic sensor and PIR sensor is connected to the Raspberry Pi 4 successfully and the distance and the motion detection is visualised in thingspeak confirming the proper interfacing of a digital output.
