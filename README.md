@@ -1,8 +1,8 @@
 # EXPERIMENT-03-INTERFACTING-DIGITAL-SENSOR-WITH-EDGE-DEVELOPMENT-BOARD-ULTRASONIC-AND-PIR-SENSOR-(RASPBERRYPI-PI4)
-### NAME 
-### DEPARTMENT 
-### ROLL NO 
-### DATE OF EXPERIMENT 
+### NAME : SOUNDARYA J
+### DEPARTMENT : IT 
+### ROLL NO : 212223220108
+### DATE OF EXPERIMENT : 12.02.2026
 
 ### AIM
 To interface a digital sensor (Ultrasonic and PIR) with the Raspberry Pi 4 and control it using Python.
@@ -59,34 +59,128 @@ Connect the PIR sensor Vcc to any +5V.
 Connect the PIR sensor GND to any GND.
 Connect the PIR sensor OUT to any one GPIO. 
 
-Experiment 3A
-## PROGRAM (Python)
+## Experiment 3A(Ultrasonic Sensor):
+## PROGRAM:
+```
+import RPi.GPIO as GPIO
+import time
+import requests
+
+# ThingSpeak settings
+API_KEY = "VVWU73OPRWSIBGCH"
+THINGSPEAK_URL = "https://api.thingspeak.com/update"
+
+# GPIO pins
+TRIG = 23
+ECHO = 24
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
+
+def get_distance():
+    GPIO.output(TRIG, False)
+    time.sleep(0.5)
+
+    # Trigger pulse
+    GPIO.output(TRIG, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
+
+    while GPIO.input(ECHO) == 0:
+        pulse_start = time.time()
+
+    while GPIO.input(ECHO) == 1:
+        pulse_end = time.time()
+
+    pulse_duration = pulse_end - pulse_start
+    distance = pulse_duration * 17150
+    distance = round(distance, 2)
+
+    return distance
+
+try:
+    while True:
+        distance = get_distance()
+
+        # Console output
+        print("distance =", distance, "cm")
+
+        # Text message for ThingSpeak
+        status_text = f"distance = {distance} cm"
+
+        # Send data to ThingSpeak
+        payload = {
+            "api_key": API_KEY,
+            "field2": distance,   # numeric for chart
+            "status": status_text # text message
+        }
+
+        response = requests.get(THINGSPEAK_URL, params=payload)
+        print("Sent to ThingSpeak")
+
+        time.sleep(15)
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
 ```
 
+### OUTPUT  (Experiment 3A)
+![WhatsApp Image 2026-02-16 at 11 03 54 AM](https://github.com/user-attachments/assets/f15ad79f-5398-4c6a-85f7-b092c217c826)
+![WhatsApp Image 2026-02-16 at 11 03 55 AM](https://github.com/user-attachments/assets/dec8e0d2-5ee3-42a0-bc19-565dbee23831)
+<img width="1919" height="907" alt="Screenshot 2026-02-12 144917" src="https://github.com/user-attachments/assets/a7002434-f093-4bf0-b52e-c2ccb68b6924" />
+<img width="1919" height="903" alt="Screenshot 2026-02-12 144929" src="https://github.com/user-attachments/assets/7d1f3b56-f8dc-4af1-8aae-b986e27a399a" />
 
- 
 
+## Experiment 3B(PIR Sensor):
+## PROGRAM:
+```
+import RPi.GPIO as GPIO
+import time
+import requests
 
+WRITE_API_KEY = "VVWU73OPRWSIBGCH"
+URL = "https://api.thingspeak.com/update"
 
- 
-````
+PIR_PIN = 17
 
-### OUPUT  
-Experiment 1A
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(PIR_PIN, GPIO.IN)
 
-# FIGURE -02 ADD TITILE HERE 
+print("PIR Monitoring Started...")
+time.sleep(2)
 
-#  FIGURE -03 ADD TITILE HERE 
+last_state = -1   # store previous state
 
-# FIGURE -04 ADD TITLE HERE 
+def update_thingspeak(state):
+    data = {
+        "api_key": WRITE_API_KEY,
+        "field1": state
+    }
+    try:
+        requests.get(URL, params=data)
+        print("Uploaded to ThingSpeak:", state)
+    except:
+        print("Upload Failed")
 
-Experiment 3B
+while True:
+    motion = GPIO.input(PIR_PIN)
 
-# FIGURE -05 ADD TITILE HERE 
+    if motion != last_state:   # send only if changed
+        if motion == 1:
+            print("Motion Detected")
+            update_thingspeak(1)
+        else:
+            print("No Motion")
+            update_thingspeak(0)
 
-#  FIGURE -06 ADD TITILE HERE 
+        last_state = motion
+        time.sleep(15)  # ThingSpeak delay
 
-# FIGURE -07 ADD TITLE HERE 
+    time.sleep(1)
+```
+## OUTPUT (Experiment 3B):
+
 
  
 ## RESULTS
