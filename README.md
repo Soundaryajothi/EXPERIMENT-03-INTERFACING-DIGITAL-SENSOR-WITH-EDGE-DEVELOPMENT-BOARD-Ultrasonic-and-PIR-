@@ -112,7 +112,7 @@ try:
         # Send data to ThingSpeak
         payload = {
             "api_key": API_KEY,
-            "field2": distance,   # numeric for chart
+            "field3": distance,   # numeric for chart
             "status": status_text # text message
         }
 
